@@ -239,6 +239,38 @@ export const graph = new StateGraph(EmailStateDefinition)
   // Compile with checkpointer for persistence
   .compile({ checkpointer });
 
+// Helper function to create consistent metadata for observability
+function createMetadata(email: { emailContent: string; senderEmail: string; emailId: string; threadId: string }, additional?: Record<string, any>) {
+  return {
+    // Correlation IDs (for linking across systems)
+    thread_id: email.threadId,
+    email_id: email.emailId,
+    session_id: email.threadId, // Using threadId as session for this example
+    
+    // User and context information
+    user_email: email.senderEmail,
+      
+    // System information
+    environment: process.env.NODE_ENV || 'development',
+    node_version: process.version,
+    
+    // Analytics tags
+    tags: additional?.['tags'] || [],
+    
+    // Timestamps
+    received_at: new Date().toISOString(),
+    
+    // Cost tracking category
+    cost_center: 'customer_support',
+    
+    // Geographic information (if available)
+    region: 'unknown', // Could be extracted from email headers
+    
+    // Allow additional metadata to be passed in
+    ...additional
+  };
+}
+
 
 if (import.meta.url === `file://${process.argv[1]}`) {
 
@@ -287,10 +319,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log(`Processing: ${email.emailId} (${email.threadId})`);
       console.log('='.repeat(60));
       
+      // Create metadata using helper function (see createMetadata function above)
+      const metadata = createMetadata(email, {
+        // Additional metadata for batch processing
+        batch_run: true,
+        email_index: testEmails.indexOf(email) + 1,
+        total_emails: testEmails.length
+      });
+      
       const config = {
         configurable: {
           thread_id: email.threadId
-        }
+        },
+        metadata: metadata  // This will appear in LangSmith/Langfuse
       };
   
       try {
@@ -321,10 +362,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log(`Processing: ${email.emailId} (${email.threadId})`);
       console.log('='.repeat(60));
       
+      // Create metadata using helper function
+      const metadata = createMetadata(email, {
+        // Additional metadata specific to this invocation
+        test_run: true,
+        single_email_test: true
+      });
+      
       const config = {
         configurable: {
           thread_id: email.threadId
-        }
+        },
+        metadata: metadata  // This will appear in LangSmith/Langfuse
       };
   
       try {
