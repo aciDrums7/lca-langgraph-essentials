@@ -3,37 +3,41 @@
   "private": true,
   "description": "LangGraph JavaScript/TypeScript tutorial examples",
   "type": "module",
+  "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc",
   "scripts": {
     "build": "tsc",
     "dev": "pnpx @langchain/langgraph-cli dev",
+    "setup:postgres": "tsx scripts/setup-postgres.ts",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check-updates": "ncu -i --format group"
   },
   "dependencies": {
-    "@langchain/anthropic": "^1.0.0",
-    "@langchain/core": "^1.0.0",
-    "@langchain/langgraph": "^1.0.0",
+    "@langchain/core": "^1.1.31",
+    "@langchain/langgraph": "^1.2.1",
     "@langchain/langgraph-checkpoint": "^1.0.0",
-    "@langchain/langgraph-sdk": "^1.0.0",
-    "@langchain/openai": "^1.0.0",
-    "uuid": "^10.0.0",
+    "@langchain/langgraph-checkpoint-postgres": "^1.0.1",
+    "@langchain/langgraph-sdk": "^1.6.5",
+    "@langchain/openai": "^1.2.12",
+    "uuid": "^13.0.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@langchain/langgraph-cli": "^1.0.0",
-    "@types/node": "^20.0.0",
-    "@types/uuid": "^9.0.0",
+    "@langchain/langgraph-cli": "^1.1.15",
+    "@types/node": "^25.4.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.3.1",
     "eslint": "^8.0.0",
-    "prettier": "^3.0.0",
-    "tsx": "^4.0.0",
-    "typescript": "^5.0.0"
+    "npm-check-updates": "^19.6.3",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=20.0.0"
-  },
-  "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc"
+    "node": ">=22.0.0"
+  }
 }

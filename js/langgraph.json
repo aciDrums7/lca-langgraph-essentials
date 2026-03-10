@@ -8,7 +8,8 @@
     "03-conditional-edges": "src/L1/03-conditional-edges.ts:graph",
     "04-memory": "src/L1/04-memory.ts:graph",
     "05-interrupts": "src/L1/05-interrupts.ts:graph",
-    "email-workflow": "src/L2/email-workflow-complete.ts:graph"
+    "email-workflow": "src/L2/email-workflow-complete.ts:graph",
+    "email-workflow-practice": "src/L2/practice/email-workflow.practice.ts:graph"
   },
   "env": ".env"
 }
